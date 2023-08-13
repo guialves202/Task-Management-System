@@ -1,0 +1,32 @@
+<div class="logo-div">
+  <a href="/home">
+      <i class="las la-rocket"></i>
+      <h1>Spacelaxy</h1>
+  </a>
+</div>
+
+<div class="main">
+    <div class="form-card">
+        <form action="/user/login" method="post" class="main-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="text-div">
+                <h2>Sign In</h2>
+            </div>
+            <div class="email-div">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            
+            <div class="password-div">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div class="main-btn">
+                <button class="btn-primary" type="submit">Sign In</button>
+            </div>
+            <div class="change-form">
+                <p>Don't have an account? <a href="/user/register">Click here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
