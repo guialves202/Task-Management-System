@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 class CsrfMiddleware {
   checkCsrfError(err: object, req: Request, res: Response, next: NextFunction) {
     if (err) {
-      return res.redirect('404');
+      return res.redirect('/404');
     }
     next();
   }

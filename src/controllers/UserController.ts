@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
 import UserService from '../services/UserService';
 
-type dataType = {
+type registerType = {
   name: string;
+  email: string;
+  password: string;
+};
+
+type loginType = {
   email: string;
   password: string;
 };
@@ -18,14 +23,16 @@ class UserController {
 
   async register(req: Request, res: Response) {
     const { name, email, password } = req.body || {};
-    const data: dataType = {
+    const data: registerType = {
       name,
       email,
       password,
     };
+
     try {
       const user = await UserService.register(data);
       console.log(user);
+      return res.redirect('/home');
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
       return res.redirect('/404');
@@ -33,7 +40,31 @@ class UserController {
   }
 
   async login(req: Request, res: Response) {
-    return;
+    const { email, password } = req.body || {};
+    const data: loginType = {
+      email,
+      password,
+    };
+
+    try {
+      const user = await UserService.login(data);
+      if (user) {
+        req.session.user = user;
+        req.session.save(function () {
+          return res.redirect('/dashboard');
+        });
+      }
+    } catch (err) {
+      if (err instanceof Error) console.log(err.message);
+      return res.redirect('/404');
+    }
+  }
+
+  logout(req: Request, res: Response) {
+    req.session.destroy((err) => {
+      if (err) console.log(err);
+    });
+    return res.redirect('/home');
   }
 }
 

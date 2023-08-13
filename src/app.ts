@@ -4,6 +4,7 @@ import express from 'express';
 import { Express } from 'express';
 import homeRoutes from './routes/home';
 import userRoutes from './routes/user';
+import dashboardRoutes from './routes/dashboard';
 import path from 'path';
 import cors from 'cors';
 import flash from 'connect-flash';
@@ -13,6 +14,13 @@ import { Request, Response } from 'express';
 import GlobalMiddleware from './middlewares/GlobalMiddleware';
 import CsrfMiddleware from './middlewares/CsrfMiddleware';
 import session from 'express-session';
+import checkLoggedMiddleware from './middlewares/checkLoggedMiddleware';
+
+declare module 'express-session' {
+  export interface SessionData {
+    user: { id: string; email: string; password: string };
+  }
+}
 
 class App {
   app: Express;
@@ -43,19 +51,20 @@ class App {
 
   middlewares() {
     this.app.use(helmet());
-    this.app.use(csrf());
     this.app.use(cors());
     this.app.use(flash());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    this.app.use(GlobalMiddleware.localVariables);
-    this.app.use(CsrfMiddleware.csrfMiddleware);
+    this.app.use(csrf());
     this.app.use(CsrfMiddleware.checkCsrfError);
+    this.app.use(CsrfMiddleware.csrfMiddleware);
+    this.app.use(GlobalMiddleware.localVariables);
   }
 
   routes() {
     this.app.use('/home', homeRoutes);
     this.app.use('/user', userRoutes);
+    this.app.use('/dashboard', checkLoggedMiddleware.onlyLogged, dashboardRoutes);
     this.app.get('/404', (req: Request, res: Response) => {
       return res.render('404');
     });
