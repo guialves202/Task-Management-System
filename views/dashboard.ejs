@@ -1,0 +1,116 @@
+<script src="/js/index.js" defer></script>
+<input type="checkbox" id="nav-toggle">
+
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <h2>
+            <a href="/home">
+                <span class="las la-rocket"></span>
+                <span>SPACELAXY</span>
+            </a>
+        </h2>
+    </div>
+
+    <div class="sidebar-menu">
+        <ul>
+            <li class="btn active">
+                <a>
+                    <span class="las la-home"></span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="btn">
+                <a>
+                    <span class="lar la-edit"></span>
+                    <span>Edit profile</span>
+                </a>
+            </li>
+
+            <li class="btn">
+                <form action="/user/logout" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit">
+                        <a>
+                            <span class="las la-sign-out-alt"></span>
+                            <span>Log out</span>
+                        </a>
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-content">
+    <header>
+        <h2>
+            <label for="nav-toggle"><span class="las la-bars"></span></label>
+            Tasks
+        </h2>
+
+        <div class="user-wrapper">
+            <img src="/img/perfil-padrao.png" alt="profile" class="profile-img">
+            <div>
+                <h4><%= user.name %></h4>
+                <small><%= user.email %></small>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard-cards">
+            <div class="card-single">
+                <div class="card-type">
+                    <h5>To Do</h5>
+                </div>
+
+                <div class="card-task">
+                    <p>Limpar a caixa dos gatos</p>
+                </div>
+
+                <div class="add-task">
+                    <button>
+                        <span class="las la-plus"></span>
+                        <span>Add a task</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div class="card-type">
+                    <h5>Doing</h5>
+                </div>
+
+                <div class="card-task">
+                    <p>Limpar a caixa dos gatos</p>
+                </div>
+
+                <div class="add-task">
+                    <button>
+                        <span class="las la-plus"></span>
+                        <span>Add a task</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div class="card-type">
+                    <h5>Done</h5>
+                </div>
+
+                <div class="card-task">
+                    <p>Limpar a caixa dos gatos</p>
+                </div>
+                
+                <div class="add-task">
+                    <button>
+                        <span class="las la-plus"></span>
+                        <span>Add a task</span>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+</div>
