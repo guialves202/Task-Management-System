@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
 class CsrfMiddleware {
-
   checkCsrfError(err: object, req: Request, res: Response, next: NextFunction) {
     if (err) {
       return res.redirect('404');
@@ -13,7 +12,6 @@ class CsrfMiddleware {
     res.locals.csrfToken = req.csrfToken();
     next();
   }
-
 }
 
-export default new CsrfMiddleware;
+export default new CsrfMiddleware();

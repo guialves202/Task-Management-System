@@ -5,8 +5,4 @@ const router = Router();
 
 router.get('/', HomeController.index);
 
-router.post('/login', HomeController.login);
-
-router.post('/register', HomeController.register);
-
 export default router;
