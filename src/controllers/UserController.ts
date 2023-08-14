@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserService from '../services/UserService';
+import UserRepository from '../repositories/UserRepository';
 
 type registerType = {
   name: string;
@@ -7,7 +7,9 @@ type registerType = {
   password: string;
 };
 
-type loginType = {
+type userType = {
+  id: string;
+  name: string;
   email: string;
   password: string;
 };
@@ -22,41 +24,22 @@ class UserController {
   }
 
   async register(req: Request, res: Response) {
-    const { name, email, password } = req.body || {};
-    const data: registerType = {
-      name,
-      email,
-      password,
-    };
-
+    const data: registerType = res.locals.data;
     try {
-      const user = await UserService.register(data);
-      console.log(user);
+      await UserRepository.create(data);
       return res.redirect('/home');
     } catch (err) {
-      if (err instanceof Error) console.log(err.message);
-      return res.redirect('/404');
+      if (err instanceof Error) return res.redirect('/404');
     }
   }
 
   async login(req: Request, res: Response) {
-    const { email, password } = req.body || {};
-    const data: loginType = {
-      email,
-      password,
-    };
-
-    try {
-      const user = await UserService.login(data);
-      if (user) {
-        req.session.user = user;
-        req.session.save(function () {
-          return res.redirect('/dashboard');
-        });
-      }
-    } catch (err) {
-      if (err instanceof Error) console.log(err.message);
-      return res.redirect('/404');
+    const user: userType = res.locals.data;
+    if (user) {
+      req.session.user = user;
+      req.session.save(function () {
+        return res.redirect('/dashboard');
+      });
     }
   }
 
