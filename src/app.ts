@@ -5,6 +5,7 @@ import { Express } from 'express';
 import homeRoutes from './routes/home';
 import userRoutes from './routes/user';
 import dashboardRoutes from './routes/dashboard';
+import taskRoutes from './routes/tasks';
 import path from 'path';
 import cors from 'cors';
 import flash from 'connect-flash';
@@ -64,6 +65,7 @@ class App {
   routes() {
     this.app.use('/home', homeRoutes);
     this.app.use('/user', userRoutes);
+    this.app.use('/task', checkLoggedMiddleware.onlyLogged, taskRoutes);
     this.app.use('/dashboard', checkLoggedMiddleware.onlyLogged, dashboardRoutes);
     this.app.get('/404', (req: Request, res: Response) => {
       return res.render('404');

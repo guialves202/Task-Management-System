@@ -1,4 +1,5 @@
 <script src="/js/index.js" defer></script>
+
 <input type="checkbox" id="nav-toggle">
 
 <div class="sidebar">
@@ -65,9 +66,17 @@
                     <h5>To Do</h5>
                 </div>
 
-                <div class="card-task">
-                    <p>Limpar a caixa dos gatos</p>
-                </div>
+                <% tasks.forEach(task => { %>
+                <%      if (task.status == 'ToDo') { %>
+                    <div class="card-task edit-task">
+                        <input type="hidden" name="taskId" value="<%=task.id%>" class="task-id">
+                        <span class="task-title"><%= task.title %></span>
+                        <span class="task-description"><%= task.description %></span>
+                        <span class="task-status"><%= task.status %></span>
+                        <span class="las la-pencil-alt"></span>
+                    </div>
+                <%      } %>
+                <%  }) %>
 
                 <div class="add-task">
                     <button>
@@ -82,9 +91,17 @@
                     <h5>Doing</h5>
                 </div>
 
-                <div class="card-task">
-                    <p>Limpar a caixa dos gatos</p>
-                </div>
+                <% tasks.forEach(task => { %>
+                <%      if (task.status == 'Doing') { %>
+                    <div class="card-task edit-task">
+                        <input type="hidden" name="taskId" value="<%=task.id%>" class="task-id">
+                        <span class="task-title"><%= task.title %></span>
+                        <span class="task-description"><%= task.description %></span>
+                        <span class="task-status"><%= task.status %></span>
+                        <span class="las la-pencil-alt"></span>
+                    </div>
+                <%      } %>
+                <%  }) %>
 
                 <div class="add-task">
                     <button>
@@ -99,18 +116,95 @@
                     <h5>Done</h5>
                 </div>
 
-                <div class="card-task">
-                    <p>Limpar a caixa dos gatos</p>
-                </div>
-                
+                <% tasks.forEach(task => { %>
+                <%      if (task.status == 'Done') { %>
+                    <div class="card-task edit-task">
+                        <input type="hidden" name="taskId" value="<%=task.id%>" class="task-id">
+                        <span class="task-title"><%= task.title %></span>
+                        <span class="task-description"><%= task.description %></span>
+                        <span class="task-status"><%= task.status %></span>
+                        <span class="las la-pencil-alt"></span>
+                    </div>
+                <%      } %>
+                <%  }) %>
+
                 <div class="add-task">
                     <button>
                         <span class="las la-plus"></span>
                         <span>Add a task</span>
                     </button>
                 </div>
-            </div>
+            </div>    
             
         </div>
     </main>
+</div>
+
+
+<div class="blur" id="modal01">
+    <div class="boxModal">
+        <span class="close"><i class="las la-times"></i></span>
+        <div class="content-att">
+            <div class="title">
+                <h3>Edit task</h3>
+            </div>
+
+            <form action="/task/edit" method="post" name="editForm" id="editForm">
+                <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                <input type="hidden" name="task-id" id="task-id" value="">
+                <label for="title">
+                    Title
+                    <input type="text" name="title" id="title">
+                </label>
+
+                <label for="description">
+                    Description
+                    <textarea name="description" id="description" cols="80" rows="5"></textarea>
+                </label>
+
+                <label for="status">
+                    Status
+                    <select name="status" id="status">
+                        <option value="1">To Do</option>
+                        <option value="2">Doing</option>
+                        <option value="3">Done</option>
+                    </select>
+                </label>
+
+                <div class="form-buttons">
+                    <button type="submit">Save</button>
+                    <button type="submit" id="delete-btn" formaction="/task/delete"><i class="las la-trash-alt"></i></button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="blur" id="modal02">
+  <div class="boxModal">
+      <span class="close"><i class="las la-times"></i></span>
+      <div class="content-att">
+          <div class="title">
+              <h3>Create task</h3>
+          </div>
+
+          <form action="/task/add" method="post">
+              <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+              <label for="title">
+                  Title
+                  <input type="text" name="title" id="title">
+              </label>
+
+              <label for="description">
+                  Description
+                  <textarea name="description" id="description" cols="80" rows="10"></textarea>
+              </label>
+              
+              <input type="hidden" name="status" id="status" value="">
+
+              <button type="submit">Save</button>
+          </form>
+      </div>
+  </div>
 </div>
