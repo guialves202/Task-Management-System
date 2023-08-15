@@ -20,6 +20,7 @@ import checkLoggedMiddleware from './middlewares/checkLoggedMiddleware';
 declare module 'express-session' {
   export interface SessionData {
     user: { id: string; email: string; password: string };
+    colorMode: string;
   }
 }
 

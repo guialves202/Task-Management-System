@@ -1,9 +1,8 @@
 <script src="/js/index.js" defer></script>
-<script src="/js/toggleButton.js" defer></script>
 
 <input type="checkbox" id="nav-toggle">
 
-<div class="sidebar light-mode">
+<div class="sidebar <%= colorMode %>">
     <div class="sidebar-brand">
         <h2>
             <a href="/home">
@@ -15,21 +14,21 @@
 
     <div class="sidebar-menu">
         <ul>
-            <li class="btn active light-mode">
+            <li class="btn active <%= colorMode %>">
                 <a>
                     <span class="las la-home"></span>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="btn light-mode">
+            <li class="btn <%= colorMode %>">
                 <a>
                     <span class="lar la-edit"></span>
                     <span>Edit profile</span>
                 </a>
             </li>
 
-            <li class="btn light-mode">
+            <li class="btn <%= colorMode %>">
                 <form action="/user/logout" method="post">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button type="submit">
@@ -49,7 +48,7 @@
 </div>
 
 <div class="main-content">
-    <header class="light-mode">
+    <header class="<%= colorMode %>">
         <h2>
             <label for="nav-toggle"><span class="las la-bars"></span></label>
             Tasks
@@ -64,9 +63,9 @@
         </div>
     </header>
 
-    <main class="light-mode">
+    <main class="<%= colorMode %>">
         <div class="dashboard-cards">
-            <div class="card-single light-mode">
+            <div class="card-single <%= colorMode %>">
                 <div class="card-type">
                     <h5>To Do</h5>
                 </div>
@@ -91,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="card-single light-mode">
+            <div class="card-single <%= colorMode %>">
                 <div class="card-type">
                     <h5>Doing</h5>
                 </div>
@@ -116,7 +115,7 @@
                 </div>
             </div>
 
-            <div class="card-single light-mode">
+            <div class="card-single <%= colorMode %>">
                 <div class="card-type">
                     <h5>Done</h5>
                 </div>
@@ -147,7 +146,7 @@
 
 
 <div class="blur" id="modal01">
-    <div class="boxModal light-mode">
+    <div class="boxModal <%= colorMode %>">
         <span class="close"><i class="las la-times"></i></span>
         <div class="content-att">
             <div class="title">
@@ -157,6 +156,7 @@
             <form action="/task/edit" method="post" name="editForm" id="editForm">
                 <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                 <input type="hidden" name="task-id" id="task-id" value="">
+                <input type="hidden" name="colorMode" class="colorMode" value="<%= colorMode %>">
                 <label for="title">
                     Title
                     <input type="text" name="title" id="title">
@@ -187,7 +187,7 @@
 </div>
 
 <div class="blur" id="modal02">
-  <div class="boxModal light-mode">
+  <div class="boxModal <%= colorMode %>">
       <span class="close"><i class="las la-times"></i></span>
       <div class="content-att">
           <div class="title">
@@ -196,6 +196,7 @@
 
           <form action="/task/add" method="post">
               <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+              <input type="hidden" name="colorMode" class="colorMode" value="<%= colorMode %>">
               <label for="title">
                   Title
                   <input type="text" name="title" id="title">
