@@ -27,7 +27,10 @@ class UserController {
     const data: registerType = res.locals.data;
     try {
       await UserRepository.create(data);
-      return res.redirect('/');
+      req.session.save(function () {
+        req.flash('success_msg', 'Successfully saved account');
+        return res.redirect('/user/login');
+      });
     } catch (err) {
       if (err instanceof Error) return res.redirect('/404');
     }
@@ -38,6 +41,7 @@ class UserController {
     if (user) {
       req.session.user = user;
       req.session.save(function () {
+        req.flash('success_msg', `Welcome ${user.name}!`);
         return res.redirect('/dashboard');
       });
     }
