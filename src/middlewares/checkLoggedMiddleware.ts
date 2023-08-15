@@ -4,7 +4,7 @@ class checkLoggedMiddleware {
   onlyLogged(req: Request, res: Response, next: NextFunction) {
     if (!req.session.user) {
       req.flash('error_msg', 'You must sign in to access this area');
-      return res.redirect('/home');
+      return res.redirect('/');
     }
     next();
   }

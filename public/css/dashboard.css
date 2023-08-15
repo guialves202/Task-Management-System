@@ -24,7 +24,6 @@
 }
 
 .sidebar-menu li {
-    width: 100%;
     margin-bottom: 1.5rem;
     cursor: pointer;
     margin-left: 1rem;
@@ -61,6 +60,51 @@
 
 .sidebar-menu li.active > a {
     color: var(--main-color);
+}
+
+.toggle-div {
+  display: flex;
+  align-items: center;
+  justify-content: initial;
+  padding-left: 2rem;
+}
+
+#toggle-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: #999;
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+  z-index: 1;
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+}
+
+#toggle-btn::before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #EEE;
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease-in;
+}
+
+#toggle-btn:checked {
+  background: #03FFC0;
+}
+
+#toggle-btn:checked::before {
+  background: #333;
+  left: 32px;
 }
 
 #nav-toggle {
@@ -101,6 +145,11 @@
 #nav-toggle:checked ~ .main-content header {
     width: calc(100% - 70px);
     left: 70px;
+}
+
+#nav-toggle:checked + .sidebar #toggle-btn {
+  transform: rotate(90deg);
+  left: .5rem;
 }
 
 .main-content {
@@ -235,7 +284,6 @@ main {
 }
 
 
-
 /* Modals */
 
 .blur {
@@ -270,7 +318,6 @@ main {
   font-size: 1.2rem;
   top: 0;
   right: 0;
-  background: #fff;
   color: var(--color-dark);
   padding: .3rem 1.2rem;
   cursor: pointer;
@@ -278,7 +325,7 @@ main {
 }
 
 .boxModal .close:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background-color: red;
 }
 
 .content-att {
@@ -373,6 +420,80 @@ main {
   border-radius: 100px;
 }
 
+/* DARK MODE */
+
+.light-mode {
+  transition: all .3s;
+}
+
+.dark-mode {
+  transition: all .3s;
+}
+
+.sidebar.dark-mode {
+  background-color: #161616;
+}
+
+.btn.active.dark-mode {
+  background-color: #363636;
+}
+
+.btn.active.dark-mode span {
+  color: #EEEEEE;
+}
+
+main.dark-mode {
+  background-color: #363636;
+}
+
+.card-single.dark-mode {
+  background-color: #161616;
+  color: white;
+}
+
+.card-single.dark-mode span {
+  color: white;
+}
+
+.card-single.dark-mode .add-task button:hover {
+  background-color: #464646;
+}
+
+.card-single.dark-mode .card-task {
+  background-color: #363636;
+}
+
+header.dark-mode {
+  background-color: #161616;
+  color: white;
+}
+
+header.dark-mode span, header.dark-mode h2 {
+  color: white;
+}
+
+body.dark-mode {
+  background-color: #363636;
+}
+
+.boxModal.dark-mode {
+  background-color: #262626;
+}
+
+.boxModal.dark-mode .title, .boxModal.dark-mode label {
+  color: white;
+}
+
+.boxModal.dark-mode input, .boxModal.dark-mode textarea, .boxModal.dark-mode select {
+  background-color: #363636;
+  color: white;
+}
+
+.boxModal.dark-mode .close {
+  color: white;
+}
+
+
 /* Media Querys */
 
 @media only screen and (max-width: 1280px) {
@@ -406,6 +527,12 @@ main {
       width: calc(100% - 70px);
       left: 70px;
   }
+
+  #toggle-btn {
+    transform: rotate(90deg);
+    left: .5rem;
+  }
+
 }
 
 @media only screen and (max-width: 1180px) {
