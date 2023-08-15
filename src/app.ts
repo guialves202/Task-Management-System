@@ -63,12 +63,12 @@ class App {
   }
 
   routes() {
-    this.app.use('/home', homeRoutes);
+    this.app.use(homeRoutes);
     this.app.use('/user', userRoutes);
     this.app.use('/task', checkLoggedMiddleware.onlyLogged, taskRoutes);
     this.app.use('/dashboard', checkLoggedMiddleware.onlyLogged, dashboardRoutes);
     this.app.get('/404', (req: Request, res: Response) => {
-      return res.render('404');
+      return res.render('layouts/main', { cssPath: '/css/404.css', page: '../404.ejs' });
     });
   }
 }

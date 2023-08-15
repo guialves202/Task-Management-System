@@ -1,8 +1,9 @@
 <script src="/js/index.js" defer></script>
+<script src="/js/toggleButton.js" defer></script>
 
 <input type="checkbox" id="nav-toggle">
 
-<div class="sidebar">
+<div class="sidebar light-mode">
     <div class="sidebar-brand">
         <h2>
             <a href="/home">
@@ -14,21 +15,21 @@
 
     <div class="sidebar-menu">
         <ul>
-            <li class="btn active">
+            <li class="btn active light-mode">
                 <a>
                     <span class="las la-home"></span>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="btn">
+            <li class="btn light-mode">
                 <a>
                     <span class="lar la-edit"></span>
                     <span>Edit profile</span>
                 </a>
             </li>
 
-            <li class="btn">
+            <li class="btn light-mode">
                 <form action="/user/logout" method="post">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button type="submit">
@@ -41,10 +42,14 @@
             </li>
         </ul>
     </div>
+
+    <div class="toggle-div">
+        <input type="checkbox" name="toggle-btn" id="toggle-btn">
+    </div>
 </div>
 
 <div class="main-content">
-    <header>
+    <header class="light-mode">
         <h2>
             <label for="nav-toggle"><span class="las la-bars"></span></label>
             Tasks
@@ -59,9 +64,9 @@
         </div>
     </header>
 
-    <main>
+    <main class="light-mode">
         <div class="dashboard-cards">
-            <div class="card-single">
+            <div class="card-single light-mode">
                 <div class="card-type">
                     <h5>To Do</h5>
                 </div>
@@ -86,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="card-single">
+            <div class="card-single light-mode">
                 <div class="card-type">
                     <h5>Doing</h5>
                 </div>
@@ -111,7 +116,7 @@
                 </div>
             </div>
 
-            <div class="card-single">
+            <div class="card-single light-mode">
                 <div class="card-type">
                     <h5>Done</h5>
                 </div>
@@ -142,7 +147,7 @@
 
 
 <div class="blur" id="modal01">
-    <div class="boxModal">
+    <div class="boxModal light-mode">
         <span class="close"><i class="las la-times"></i></span>
         <div class="content-att">
             <div class="title">
@@ -182,7 +187,7 @@
 </div>
 
 <div class="blur" id="modal02">
-  <div class="boxModal">
+  <div class="boxModal light-mode">
       <span class="close"><i class="las la-times"></i></span>
       <div class="content-att">
           <div class="title">

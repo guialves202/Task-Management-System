@@ -27,7 +27,7 @@ class UserController {
     const data: registerType = res.locals.data;
     try {
       await UserRepository.create(data);
-      return res.redirect('/home');
+      return res.redirect('/');
     } catch (err) {
       if (err instanceof Error) return res.redirect('/404');
     }
@@ -47,7 +47,7 @@ class UserController {
     req.session.destroy((err) => {
       if (err) console.log(err);
     });
-    return res.redirect('/home');
+    return res.redirect('/');
   }
 }
 
