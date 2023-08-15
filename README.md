@@ -6,7 +6,7 @@ Create a .env file in the root directory following the .env.example example and 
 ```
 npx prisma migrate dev --name init
 ```
-This command will create the database that is in the .env file.
+This command will create the database that is in the .env file. The prisma provider is setted to mysql, you can change it in the schema.prisma file.
 After this, run this for transpile typescript to javascript:
 ```
 npm run build
