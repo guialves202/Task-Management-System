@@ -1,37 +1,3 @@
-const liButtonsList = document.querySelectorAll('.btn');
-
-liButtonsList.forEach((element) => {
-  element.addEventListener('click', () => {
-    liButtonsList.forEach((element) => {
-      element.classList.remove('active');
-    });
-    element.classList.add('active');
-  });
-});
-
-const editTaskButtons = document.querySelectorAll('.edit-task');
-
-editTaskButtons.forEach((element) => {
-  element.addEventListener('click', createEditModal);
-});
-
-const closeButtons = document.querySelectorAll('.close');
-
-closeButtons.forEach((element) => {
-  element.addEventListener('click', () => {
-    const modal1 = document.querySelector('#modal01');
-    const modal2 = document.querySelector('#modal02');
-    modal1.style.display = 'none';
-    modal2.style.display = 'none';
-  });
-});
-
-const addTaskButtons = document.querySelectorAll('.add-task');
-
-addTaskButtons.forEach((element) => {
-  element.addEventListener('click', createAddModal);
-});
-
 class Modal {
   constructor(modal, status) {
     this.id;
@@ -101,6 +67,7 @@ function createAddModal() {
   myModal.showModal();
 }
 
+// Button to delete task
 const deleteBtn = document.querySelector('#delete-btn');
 
 deleteBtn.addEventListener('click', (event) => {
@@ -109,4 +76,70 @@ deleteBtn.addEventListener('click', (event) => {
   const taskId = editForm.querySelector('#task-id').value;
   editForm.action = `/task/delete/${taskId}`;
   editForm.submit();
+});
+
+// Button to edit task
+const editTaskButtons = document.querySelectorAll('.edit-task');
+
+editTaskButtons.forEach((element) => {
+  element.addEventListener('click', createEditModal);
+});
+
+// Button to add new task
+const addTaskButtons = document.querySelectorAll('.add-task');
+
+addTaskButtons.forEach((element) => {
+  element.addEventListener('click', createAddModal);
+});
+
+// Buttons to close modal
+const closeButtons = document.querySelectorAll('.close');
+
+closeButtons.forEach((element) => {
+  element.addEventListener('click', () => {
+    const modal1 = document.querySelector('#modal01');
+    const modal2 = document.querySelector('#modal02');
+    modal1.style.display = 'none';
+    modal2.style.display = 'none';
+  });
+});
+
+// Create sidebar animation
+const liButtonsList = document.querySelectorAll('.btn');
+
+liButtonsList.forEach((element) => {
+  element.addEventListener('click', () => {
+    liButtonsList.forEach((element) => {
+      element.classList.remove('active');
+    });
+    element.classList.add('active');
+  });
+});
+
+// Create dark/light mode toggle button event
+const toggleBtn = document.querySelector('#toggle-btn');
+const modalColorMode = document.querySelectorAll('.colorMode');
+
+toggleBtn.addEventListener('change', () => {
+  const lightMode = document.querySelectorAll('.light-mode');
+  const darkMode = document.querySelectorAll('.dark-mode');
+
+  if (lightMode.length > 0) {
+    lightMode.forEach((element) => {
+      element.classList.remove('light-mode');
+      element.classList.add('dark-mode');
+      modalColorMode.forEach((element) => {
+        element.value = 'dark-mode';
+      });
+    });
+  }
+  if (darkMode.length > 0) {
+    darkMode.forEach((element) => {
+      element.classList.remove('dark-mode');
+      element.classList.add('light-mode');
+      modalColorMode.forEach((element) => {
+        element.value = 'light-mode';
+      });
+    });
+  }
 });

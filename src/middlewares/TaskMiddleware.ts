@@ -22,7 +22,7 @@ class TaskMiddleware {
   }
 
   addTaskMiddleware(req: Request, res: Response, next: NextFunction) {
-    const { title, description, status } = req.body;
+    const { title, description, status, colorMode } = req.body;
 
     const errors: string[] = [];
 
@@ -52,6 +52,8 @@ class TaskMiddleware {
         errors.push('Invalid status');
     }
 
+    if (colorMode != 'light-mode' && colorMode != 'dark-mode') errors.push('Problem while saving color mode');
+
     if (errors.length > 0) {
       req.session.save(() => {
         req.flash('error_msg', errors);
@@ -59,12 +61,13 @@ class TaskMiddleware {
       });
     } else {
       res.locals.data = data;
+      req.session.colorMode = colorMode;
       next();
     }
   }
 
   async editTaskMiddleware(req: Request, res: Response, next: NextFunction) {
-    const { title, description, status } = req.body;
+    const { title, description, status, colorMode } = req.body;
 
     const taskId = req.params.id;
 
@@ -101,6 +104,8 @@ class TaskMiddleware {
 
     if (req.session.user && req.session.user.id != taskUser) errors.push("You don't have permission for this");
 
+    if (colorMode != 'light-mode' && colorMode != 'dark-mode') errors.push('Problem while saving color mode');
+
     if (errors.length > 0) {
       req.session.save(() => {
         req.flash('error_msg', errors);
@@ -108,18 +113,22 @@ class TaskMiddleware {
       });
     } else {
       res.locals.data = data;
+      req.session.colorMode = colorMode;
       next();
     }
   }
 
   async deleteTaskMiddleware(req: Request, res: Response, next: NextFunction) {
     const taskId = req.params.id;
+    const { colorMode } = req.body;
 
     const errors: string[] = [];
 
     const taskUser = await TaskRepository.findUserId(taskId);
 
     if (req.session.user && req.session.user.id != taskUser) errors.push("You don't have permission for this");
+
+    if (colorMode != 'light-mode' && colorMode != 'dark-mode') errors.push('Problem while saving color mode');
 
     if (errors.length > 0) {
       req.session.save(() => {
@@ -128,6 +137,7 @@ class TaskMiddleware {
       });
     } else {
       res.locals.data = taskId;
+      req.session.colorMode = colorMode;
       next();
     }
   }
